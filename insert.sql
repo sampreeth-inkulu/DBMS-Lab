@@ -8,4 +8,5 @@ insert into cast_and_crew values (NULL,"Actor2","1982:08:08","average actor from
 insert into cast_and_crew values (NULL,"Actor3","1970:09:13","dummy actor");
 insert into cast_and_crew values (NULL,"Actor4","1960:10:05","very famous");
 
-
+insert into watchlist values ("chandan.gurramluck@gmail.com",1);
+insert into watchlist values ("chandan.gurramluck@gmail.com",2);
