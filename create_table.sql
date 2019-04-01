@@ -6,7 +6,7 @@ CREATE TABLE Movie(
 );
 
 CREATE TABLE Cast_and_crew (
-	id int PRIMARY KEY,
+	id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     date_of_birth date,
     bio VARCHAR(200)
