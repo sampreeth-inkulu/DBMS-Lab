@@ -1,0 +1,8 @@
+html { 
+  background: url(https://i.pinimg.com/originals/7b/8a/98/7b8a983faf282cab258cbfe9f5c226bb.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: black;
+}
