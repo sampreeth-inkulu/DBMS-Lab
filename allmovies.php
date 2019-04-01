@@ -17,10 +17,7 @@
 	echo "Email: ".$_SESSION['email']."</br>";
 	require_once 'dbconnect.php';
 	$sql = "SELECT title,duration,lang FROM movie";
-	echo "Movie List:</br></br>";
-	echo "Movie Name"."|"."Duration";
-	echo "\t";
-	echo "|"."Language</br>";
+
 if ($result=mysqli_query($con,$sql))
   {
 	echo "<table> <tr> <th>Movie Name</th> <th>Duration(hh:mm:ss)</th> <th>Language</th> </tr>";
