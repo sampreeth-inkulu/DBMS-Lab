@@ -3,6 +3,7 @@
 	<title>
 		Moviepedia
 	</title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
 	</br></br>
