@@ -3,7 +3,7 @@
 	<title>
 		Moviepedia
 	</title>
-	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
 </head>
 <body>
 	</br></br>
@@ -35,6 +35,11 @@
 				}else{	/* Expected num_results = 0 */
 					echo "<h4>Invalid credentials!</h4>";
 				}
+			}
+			session_start();
+			if(isset($_SESSION['email'])) {
+				header("Location: user.php");
+				exit();
 			}
 		?>
 		<form action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method = "POST">
