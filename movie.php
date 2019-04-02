@@ -17,7 +17,7 @@
 		header("Location: index.php");
 		exit();
 	}
-	echo "<h2>Hello, User!</h2></br>";
+	// echo "<h2>Hello, User!</h2></br>";
 	echo "<a href = 'user.php'>My home</a></br>";
 	echo "Email: ".$_SESSION['email']."</br>";
 
@@ -31,8 +31,15 @@
 	$row = mysqli_fetch_array($result);
 
 	echo "<h2>".$row['title']."</h2>";	
-	echo "<h5>Language-".$row['lang']."</h5>";	
-    echo "<h5>Duration-".$row['duration']."</h5>";
+	echo "<h4>Language-".$row['lang']."</h4>";	
+	echo "<h4>Duration-".$row['duration']."</h4>";
+	
+	$query = "SELECT sum(collection) as s FROM Movie_boxoffice WHERE movie_id = '$id'";
+	$result = mysqli_query($con, $query);
+	if($result) {
+		$result_array = mysqli_fetch_array($result);
+		echo "Total Collection = ".$result_array['s'];
+	}
 
     if(isset($_GET['add'])) {
         if($_GET['add'] == "yes") {
@@ -76,15 +83,15 @@
     }else {
         echo "<br><a href = 'movie.php?id=".urlencode($id)."&add=".urlencode("no")."'>Remove from watchlist</a>";
     }
-
+	echo "<br><br>";
 	$query = "SELECT * FROM Part_of WHERE  movie_id ='$id'";
 	$results = mysqli_query($con, $query);
 	if($results)
 	{
 		echo '<table>
 			<tr>
-				<th>name</th>
-				<th>role</th>
+				<th>Name</th>
+				<th>Role</th>
 			</tr>';
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['id'];
@@ -108,7 +115,8 @@
 		}
 		echo '
 		</table>';
-    }
+	}
+	echo "<br><br>";
     $id = $movie_id;
 	$query = "SELECT * FROM Movie_links WHERE  movie_id ='$id'";
     $results = mysqli_query($con, $query);
@@ -116,23 +124,20 @@
 	{
 		echo '<table>
 			<tr>
-				<th>related links</th>
+				<th>Related Links</th>
             </tr>';
-        echo mysqli_num_rows($results);
 		while ($row = mysqli_fetch_array($results)){
-            echo "Hello";
 			$link = $row['related_links'];
-			echo '
+			echo "
 				<tr>
 					<td>
-                        <a href="https://'.urlencode($link).'">
-                            Hi
-							<div style="height:100%;width:100%">
-								',urlencode($link),'
+                        <a href='$link'>
+							<div style=height:100%;width:100%>
+								$link
 							</div>
 						</a>
 					</td>
-				</tr>';
+				</tr>";
 		}
 		echo '
 		</table>';

@@ -31,8 +31,8 @@
 	$row = mysqli_fetch_array($result);
 
 	echo "<h2>".$row['name']."</h2>";	
-	echo "<h5>Date of birth-".$row['date_of_birth']."</h5>";	
-	echo "<h5>".$row['bio']."</h5>";
+	echo "<h4>Date of birth: ".$row['date_of_birth']."</h4>";	
+	echo "<h4>".$row['bio']."</h4>";
 	
 	if(isset($_GET['add'])) {
         if($_GET['add'] == "yes") {
@@ -75,7 +75,7 @@
 	$result = mysqli_query($con, $query);
 	$row = mysqli_fetch_array($result);
 	echo mysqli_error($con);
-	echo"<h5>Followed by ".$row['cnt']."</h5>";
+	echo"<h4>Followed by ".$row['cnt']."</h4>";
 	
 	$query = "SELECT * FROM Part_of WHERE  id ='$id'";
 	$results = mysqli_query($con, $query);
@@ -83,8 +83,8 @@
 	{
 		echo '<table>
 			<tr>
-				<th>title</th>
-				<th>role</th>
+				<th>Title</th>
+				<th>Role</th>
 			</tr>';
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['movie_id'];
@@ -109,6 +109,7 @@
 		echo '
 		</table>';
 	}
+	echo "<br>";
 	$id = $movie_id;				
 	$query = "SELECT * FROM Links WHERE  id ='$id'";
 	$results = mysqli_query($con, $query);
@@ -116,20 +117,20 @@
 	{
 		echo '<table>
 			<tr>
-				<th>related links</th>
+				<th>Related Links</th>
 			</tr>';
 		while ($row = mysqli_fetch_array($results)){
 			$link = $row['related_links'];
-			echo '
+			echo "
 				<tr>
 					<td>
-						<a href="https://',urlencode($link),'">
-							<div style="height:100%;width:100%">
-								',urlencode($link),'
+						<a href='$link'>
+							<div style=height:100%;width:100%>
+								$link
 							</div>
 						</a>
 					</td>
-				</tr>';
+				</tr>";
 		}
 		echo '
 		</table>';
