@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>
-		celeb home
+		Celeb Home
 	</title>
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
 </head>
@@ -18,23 +18,63 @@
 		header("Location: index.php");
 		exit();
 	}
+	echo "<h2>Hello, User!</h2></br>";
+	echo "<a href = 'user.php'>My home</a></br>";
+	echo "Email: ".$_SESSION['email']."</br>";
 
 	$id = $_GET['id'];
 	
 	require_once'dbconnect.php';
-	$query = "SELECT * FROM cast_and_crew WHERE  id ='$id'";
+	$query = "SELECT * FROM Cast_and_crew WHERE  id ='$id'";
 	$result = mysqli_query($con, $query);
 	$row = mysqli_fetch_array($result);
 
 	echo "<h2>".$row['name']."</h2>";	
-	echo "<h5>date of birth-".$row['date_of_birth']."</h5>";	
-	echo "<h5>".$row['bio']."</h5>";	
+	echo "<h5>Date of birth-".$row['date_of_birth']."</h5>";	
+	echo "<h5>".$row['bio']."</h5>";
+	
+	if(isset($_GET['add'])) {
+        if($_GET['add'] == "yes") {
+			$email = $_SESSION['email'];
+			$query = "SELECT * FROM Stanlist WHERE id = '$id' AND email = '$email'";
+			$result = mysqli_query($con, $query);
+            if(mysqli_num_rows($result) == 0) {
+				$query = "INSERT INTO Stanlist(id, email) VALUES ('$id','$email')";
+				if(mysqli_query($con, $query)) {
+					// echo "<br>Added to Stanlist";
+				}else {
+					echo "<br>Error:".mysqli_error($con);
+				}
+			}
+        }else if($_GET['add'] == "no"){
+			$email = $_SESSION['email'];
+			$query = "SELECT * FROM Stanlist WHERE id = '$id' AND email = '$email'";
+			$result = mysqli_query($con, $query);
+            if(mysqli_num_rows($result) != 0) {
+				$query = "DELETE FROM Stanlist WHERE id = '$id' AND email = '$email'";
+				if(mysqli_query($con, $query)) {
+					// echo "<br>Added to Stanlist";
+				}else {
+					echo "<br>Error:".mysqli_error($con);
+				}
+			}
+		}
+	}
+	
+	$email = $_SESSION['email'];
+	$query = "SELECT * FROM Stanlist WHERE id = '$id' AND email = '$email'";
+	$result = mysqli_query($con, $query);
+	if(mysqli_num_rows($result) == 0) {
+        echo "<br><a href = 'celeb.php?id=".urlencode($id)."&add=".urlencode("yes")."'>Add to Stanlist</a>";
+	}else {
+        echo "<br><a href = 'celeb.php?id=".urlencode($id)."&add=".urlencode("no")."'>Remove from Stanlist</a>";
+	}
 
-	$query = "SELECT count(*) as cnt FROM stanlist WHERE  id ='$id'";
+	$query = "SELECT count(*) as cnt FROM Stanlist WHERE  id ='$id'";
 	$result = mysqli_query($con, $query);
 	$row = mysqli_fetch_array($result);
 	echo mysqli_error($con);
-	echo"<h5>followed by ".$row['cnt']."</h5>";
+	echo"<h5>Followed by ".$row['cnt']."</h5>";
 	
 	$query = "SELECT * FROM part_of WHERE  id ='$id'";
 	$results = mysqli_query($con, $query);
@@ -48,7 +88,7 @@
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['movie_id'];
 			$role = $row['role'];
-			$query = "SELECT * FROM movie WHERE movie_id ='$id'";
+			$query = "SELECT * FROM Movie WHERE movie_id ='$id'";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result);
 			
