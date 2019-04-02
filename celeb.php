@@ -108,7 +108,31 @@
 		echo '
 		</table>';
 	}				
-	
+	$query = "SELECT * FROM Links WHERE  id ='$id'";
+	$results = mysqli_query($con, $query);
+	if($results)
+	{
+		echo '<table>
+			<tr>
+				<th>related links</th>
+			</tr>';
+		while ($row = mysqli_fetch_array($results)){
+			$link = $row['related_links'];
+			echo '
+				<tr>
+					<td>
+						<a href="https://',urlencode($link),'">
+							<div style="height:100%;width:100%">
+								',urlencode($link),'
+							</div>
+						</a>
+					</td>
+				</tr>';
+		}
+		echo '
+		</table>';
+	}		
+?>	
 ?>
 </body>
 </html>
