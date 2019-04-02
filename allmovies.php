@@ -17,14 +17,14 @@
 	echo "<h2>Hello, User!</h2></br>";
 	echo "Email: ".$_SESSION['email']."</br>";
 	require_once 'dbconnect.php';
-	$sql = "SELECT title,duration,lang FROM movie";
+	$sql = "SELECT * FROM Movie";
 
 if ($result=mysqli_query($con,$sql))
   {
-	echo "<table> <tr> <th>Movie Name</th> <th>Duration(hh:mm:ss)</th> <th>Language</th> </tr>";
+	echo "<table> <tr> <th>Movie Name</th> <th>Duration(hh:mm:ss)</th> <th>Language</th> <th>Movie Home</th> </tr>";
   while ($obj=mysqli_fetch_object($result))
     {
-		echo "<tr> <td>$obj->title</td> <td>$obj->duration</td> <td>$obj->lang</td> </tr>";
+		echo "<tr> <td>$obj->title</td> <td>$obj->duration</td> <td>$obj->lang</td> <td><a href='movie.php?id=',".urlencode($obj->id).",'>Link</a></td> </tr>";
    // echo $obj->title."\t".$obj->duration."\t".$obj->lang."</br>";
     }
 	echo "</table>";
