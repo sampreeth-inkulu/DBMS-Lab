@@ -151,9 +151,9 @@
             }
         ?>
         <br>
-        <div>View all cast and crew here</div>
+        <div>View all cast and crew <a href = "allActors.php">here</a></div>
         <br>
-        <div>Add cast and crew here</div>
+        <div>Add cast and crew <a href = "addCast.php">here</a></div>
     </center>
 </body>
 </html>

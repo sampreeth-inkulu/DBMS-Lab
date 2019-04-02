@@ -1,8 +1,7 @@
 <html>
 <head>
-	
 	<title>
-		User Home
+		All movies
 	</title>
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -14,17 +13,23 @@
 <?php
 	
 	session_start();
+	if(! isset($_SESSION['email'])) {
+		header("Location: index.php");
+		exit();
+	}
 	echo "<h2>Hello, User!</h2></br>";
+	echo "<a href = 'user.php'>My home</a></br>";
 	echo "Email: ".$_SESSION['email']."</br>";
 	require_once 'dbconnect.php';
-	$sql = "SELECT name,date_of_birth,bio FROM cast_and_crew";
+	$sql = "SELECT * FROM Movie";
 
 if ($result=mysqli_query($con,$sql))
   {
-	echo "<table> <tr> <th>Person's Name</th> <th>Date of Birth</th> <th>Information about him(bio)</th> </tr>";
+	echo "<table> <tr> <th>Movie Name</th> <th>Duration(hh:mm:ss)</th> <th>Language</th> <th>Movie Home</th> </tr>";
   while ($obj=mysqli_fetch_object($result))
     {
-		echo "<tr> <td>$obj->name</td> <td>$obj->date_of_birth</td> <td>$obj->bio</td> </tr>";
+		echo "<tr> <td>$obj->title</td> <td>$obj->duration</td> <td>$obj->lang</td> <td><a href='movie.php?id=".urlencode($obj->movie_id)."'>Link</a></td> </tr>";
+   // echo $obj->title."\t".$obj->duration."\t".$obj->lang."</br>";
     }
 	echo "</table>";
   // Free result set

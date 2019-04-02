@@ -23,7 +23,8 @@
 
 	require_once'dbconnect.php';
 	
-	$id = $_GET['id'];
+    $id = $_GET['id'];
+    $movie_id = $id;
 	$query = "SELECT * FROM Movie WHERE  movie_id ='$id'";
     $result = mysqli_query($con, $query);
     // echo mysqli_error($con);
@@ -76,7 +77,7 @@
         echo "<br><a href = 'movie.php?id=".urlencode($id)."&add=".urlencode("no")."'>Remove from watchlist</a>";
     }
 
-	$query = "SELECT * FROM part_of WHERE  movie_id ='$id'";
+	$query = "SELECT * FROM Part_of WHERE  movie_id ='$id'";
 	$results = mysqli_query($con, $query);
 	if($results)
 	{
@@ -88,7 +89,7 @@
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['id'];
 			$role = $row['role'];
-			$query = "SELECT * FROM cast_and_crew WHERE id ='$id'";
+			$query = "SELECT * FROM Cast_and_crew WHERE id ='$id'";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result);
 			
@@ -97,7 +98,7 @@
 					<td>'.$row['name'].'</td>	
 					<td>'.$role.'</td>
 					<td>
-						<a href="celeb.php?id=',urlencode($id),'">
+						<a href="celeb.php?id='.urlencode($id).'">
 							<div style="height:100%;width:100%">
 								view
 							</div>
@@ -107,21 +108,25 @@
 		}
 		echo '
 		</table>';
-	}
+    }
+    $id = $movie_id;
 	$query = "SELECT * FROM Movie_links WHERE  movie_id ='$id'";
-	$results = mysqli_query($con, $query);
+    $results = mysqli_query($con, $query);
 	if($results)
 	{
 		echo '<table>
 			<tr>
 				<th>related links</th>
-			</tr>';
+            </tr>';
+        echo mysqli_num_rows($results);
 		while ($row = mysqli_fetch_array($results)){
+            echo "Hello";
 			$link = $row['related_links'];
 			echo '
 				<tr>
 					<td>
-						<a href="https://',urlencode($link),'">
+                        <a href="https://'.urlencode($link).'">
+                            Hi
 							<div style="height:100%;width:100%">
 								',urlencode($link),'
 							</div>

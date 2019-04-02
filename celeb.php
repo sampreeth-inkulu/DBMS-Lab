@@ -23,6 +23,7 @@
 	echo "Email: ".$_SESSION['email']."</br>";
 
 	$id = $_GET['id'];
+	$movie_id = $id;
 	
 	require_once'dbconnect.php';
 	$query = "SELECT * FROM Cast_and_crew WHERE  id ='$id'";
@@ -76,7 +77,7 @@
 	echo mysqli_error($con);
 	echo"<h5>Followed by ".$row['cnt']."</h5>";
 	
-	$query = "SELECT * FROM part_of WHERE  id ='$id'";
+	$query = "SELECT * FROM Part_of WHERE  id ='$id'";
 	$results = mysqli_query($con, $query);
 	if($results)
 	{
@@ -107,7 +108,8 @@
 		}
 		echo '
 		</table>';
-	}				
+	}
+	$id = $movie_id;				
 	$query = "SELECT * FROM Links WHERE  id ='$id'";
 	$results = mysqli_query($con, $query);
 	if($results)
@@ -132,7 +134,6 @@
 		echo '
 		</table>';
 	}		
-?>	
 ?>
 </body>
 </html>

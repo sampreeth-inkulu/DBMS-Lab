@@ -4,7 +4,7 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: black;
+    color: white;
   }
   button {
     background-color: #4CAF50; /* Green */
@@ -17,4 +17,7 @@ html {
     font-size: 16px;
     cursor: pointer;
     line-height: 5px;
+}
+a {
+  color: yellow;
 }

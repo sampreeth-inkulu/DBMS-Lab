@@ -1,21 +1,14 @@
 <head>
-
 	<title>
-
 		User Home
-
 	</title>
-
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
-
 </head>
-
 <body>
 	</br>
 	<form name = "logoutForm" action = "logout.php" method = "POST" align = "right">
 		<button type = "submit" name = "Logout">Logout</button>
 	</form>
-
 <?php
 		session_start();
 		if(! isset($_SESSION['email'])) {
@@ -31,7 +24,7 @@
 
 	echo "<h2>Watchlist<h2>";
 	
-	$query = "SELECT * FROM watchlist WHERE email ='$email'";
+	$query = "SELECT * FROM Watchlist WHERE email ='$email'";
 	$results = mysqli_query($con, $query);
 
 	if($results)
@@ -42,7 +35,7 @@
 			</tr>';
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['movie_id'];
-			$query = "SELECT * FROM movie WHERE  movie_id ='$id'";
+			$query = "SELECT * FROM Movie WHERE  movie_id ='$id'";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result);
 			
@@ -63,7 +56,7 @@
 	}
 	echo "<h2>Favlist<h2>";
 	
-	$query = "SELECT * FROM stanlist WHERE email ='$email'";
+	$query = "SELECT * FROM Stanlist WHERE email ='$email'";
 	$results = mysqli_query($con, $query);
 
 	if($results)
@@ -74,7 +67,7 @@
 			</tr>';
 		while ($row = mysqli_fetch_array($results)){
 			$id = $row['id'];
-			$query = "SELECT * FROM cast_and_crew WHERE  id ='$id'";
+			$query = "SELECT * FROM Cast_and_crew WHERE  id ='$id'";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_array($result);			
 			echo '
@@ -94,13 +87,15 @@
 	}
 
 ?>
-	</br>
-	<form name = "addMoviesForm" action = "addMovie.php">
-		<button type = "submit" name = "addMovie" onclick = "window.open('addMovie.php')">Add Movie</button>
-	</form>
-	<form name = "addCastForm" action = "addCast.php">
-		<button type = "submit" name = "addCast" onclick = "window.open('addCast.php')">Add Cast</button>
-	</form>
-
+	<br>
+	<!-- <form name = "addMoviesForm" action = "addMovie.php"> -->
+	<button type = "submit" name = "allMovies" onclick = "window.open('allMovies.php')">View All Movies</button>
+	<button type = "submit" name = "allActors" onclick = "window.open('allActors.php')">View All Actors</button>
+	<br><br>
+	<button type = "submit" name = "addMovie" onclick = "window.open('addMovie.php')">Add Movie</button>
+	<!-- </form> -->
+	<!-- <form name = "addCastForm" action = "addCast.php"> -->
+	<button type = "submit" name = "addCast" onclick = "window.open('addCast.php')">Add Cast</button>
+	<!-- </form> -->
 </body>
-</html>	
+</html>
